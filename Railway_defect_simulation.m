@@ -88,3 +88,36 @@ bar(categorical({'Normal', 'Moderate', 'Severe'}), avgRecoveries, 'FaceColor', '
 title('Average Return-to-Operation Time');
 ylabel('Hours');
 grid on;
+
+% Figure 2.1: Histogram Frequency and Distribution of Train Delays and Recovery Times
+figure('Name', 'Histogram - Train Delay Distribution', 'Color', 'white');
+
+histogram(results.Normal.delays, 20, 'DisplayName', 'Normal', 'FaceAlpha', 0.5);
+hold on;
+
+histogram(results.Moderate.delays, 20, 'DisplayName', 'Moderate', 'FaceAlpha', 0.5);
+
+histogram(results.Severe.delays, 20, 'DisplayName', 'Severe', 'FaceAlpha', 0.5);
+
+title('Distribution of Train Delay Duration');
+xlabel('Delay Duration (minutes)');
+ylabel('Frequency');
+legend('Location', 'best');
+grid on;
+hold off;
+
+% Figure 2.2: Histogram Frequency and Distribution of Train Delays and Recovery Times
+figure('Name', 'Histogram - Recovery Time Distribution', 'Color', 'white');
+
+histogram(results.Normal.recoveries, 20, 'DisplayName', 'Normal', 'FaceAlpha', 0.5);
+hold on;
+
+histogram(results.Moderate.recoveries, 20, 'DisplayName', 'Moderate', 'FaceAlpha', 0.5);
+
+histogram(results.Severe.recoveries, 20, 'DisplayName', 'Severe', 'FaceAlpha', 0.5);
+title('Distribution of Return-to-Operation Time');
+xlabel('Return-to-Operation Time (hours)');
+ylabel('Frequency');
+legend('Location', 'best');
+grid on;
+hold off;
