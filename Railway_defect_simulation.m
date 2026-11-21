@@ -157,11 +157,8 @@ figure('Name', 'Histogram Distributions', 'Color', 'white');
 subplot(1,2,1);
 histogram(results.Normal.delays, 20, 'DisplayName', 'Normal', 'FaceAlpha', 0.5);
 hold on;
-
 histogram(results.Moderate.delays, 20, 'DisplayName', 'Moderate', 'FaceAlpha', 0.5);
-
 histogram(results.Severe.delays, 20, 'DisplayName', 'Severe', 'FaceAlpha', 0.5);
-
 title('Distribution of Train Delay Duration');
 xlabel('Delay Duration (minutes)');
 ylabel('Frequency');
@@ -169,13 +166,11 @@ legend('Location', 'best');
 grid on;
 hold off;
 
-% Figure 2.2: % Right: Recovery Time Distribution
+% Figure 2.2: Recovery Time Distribution
 subplot(1,2,2);
 histogram(results.Normal.recoveries, 20, 'DisplayName', 'Normal', 'FaceAlpha', 0.5);
 hold on;
-
 histogram(results.Moderate.recoveries, 20, 'DisplayName', 'Moderate', 'FaceAlpha', 0.5);
-
 histogram(results.Severe.recoveries, 20, 'DisplayName', 'Severe', 'FaceAlpha', 0.5);
 title('Distribution of Recovery Time');
 xlabel('Return-to-Operation Time (hours)');
@@ -234,3 +229,23 @@ end
 title(sprintf('Moving Average of Recovery Time (window = %d)', window));
 xlabel('Simulation Run'); ylabel('Recovery (hours)');
 legend('Location', 'best'); grid on; hold off;
+
+%% 6. Local Stochastic Helper
+function count = poissonSample(lambda)
+    % POISSONSAMPLE Generate a Poisson random count without requiring a toolbox.
+    if lambda <= 0
+        count = 0;
+        return;
+    end
+
+    threshold = exp(-lambda);
+    product = 1;
+    count = 0;
+
+    while product > threshold
+        count = count + 1;
+        product = product * rand();
+    end
+
+    count = count - 1;
+end
