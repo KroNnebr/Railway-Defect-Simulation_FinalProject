@@ -121,3 +121,54 @@ ylabel('Frequency');
 legend('Location', 'best');
 grid on;
 hold off;
+
+%% 5. Line Graphs (Advanced Visualization)
+colors = {'#0072BD', '#EDB120', '#D95319'};
+n = (1:numSimulations)';
+window = 50;   % moving average window size
+
+% Figure 3: Running average across simulation runs
+figure('Name', 'Running Average Convergence', 'Color', 'white');
+
+subplot(1,2,1); hold on;
+for i = 1:length(scenarioNames)
+    s = scenarioNames{i};
+    plot(n, cumsum(results.(s).delays) ./ n, 'LineWidth', 1.5, ...
+        'Color', colors{i}, 'DisplayName', s);
+end
+title('Running Average of Train Delay');
+xlabel('Number of Simulations'); ylabel('Average Delay (minutes)');
+legend('Location', 'best'); grid on; hold off;
+
+subplot(1,2,2); hold on;
+for i = 1:length(scenarioNames)
+    s = scenarioNames{i};
+    plot(n, cumsum(results.(s).recoveries) ./ n, 'LineWidth', 1.5, ...
+        'Color', colors{i}, 'DisplayName', s);
+end
+title('Running Average of Return-to-Operation Time');
+xlabel('Number of Simulations'); ylabel('Average Recovery (hours)');
+legend('Location', 'best'); grid on; hold off;
+
+% Figure 4: Moving average (local trend across runs)
+figure('Name', 'Moving Average Trend', 'Color', 'white');
+
+subplot(1,2,1); hold on;
+for i = 1:length(scenarioNames)
+    s = scenarioNames{i};
+    plot(n, movmean(results.(s).delays, window), 'LineWidth', 1.5, ...
+        'Color', colors{i}, 'DisplayName', s);
+end
+title(sprintf('Moving Average of Train Delay (window = %d)', window));
+xlabel('Simulation Run'); ylabel('Delay (minutes)');
+legend('Location', 'best'); grid on; hold off;
+
+subplot(1,2,2); hold on;
+for i = 1:length(scenarioNames)
+    s = scenarioNames{i};
+    plot(n, movmean(results.(s).recoveries, window), 'LineWidth', 1.5, ...
+        'Color', colors{i}, 'DisplayName', s);
+end
+title(sprintf('Moving Average of Recovery Time (window = %d)', window));
+xlabel('Simulation Run'); ylabel('Recovery (hours)');
+legend('Location', 'best'); grid on; hold off;
