@@ -16,3 +16,5 @@ The proposed system is planned to output the following information:
 * **Line Graph:** Shows the change in train delays and arrival time under different operating severity scenarios like normal, moderate, and severe through multiple simulations.
 * **Bar Graph:** Shows the comparison between average train delay durations and estimated arrival times throughout different operating scenarios (implemented in the current structural script).
 * **Summary:** Shows the key result, such as the average train delay durations and the average estimated return of operations per different operating scenarios (computed and printed to the MATLAB Command Window).
+
+Note: Run main.m to run the simulation
